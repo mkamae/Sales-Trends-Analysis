@@ -1,0 +1,22 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the data into a pandas dataframe
+data = pd.read_csv('customer_purchases.csv')
+
+# Group the data by month and calculate the total revenue and average order value
+monthly_data = data.groupby(pd.Grouper(key='date', freq='M')).agg({'price': ['sum', 'mean']})
+
+# Plot the total revenue and average order value over time
+plt.plot(monthly_data['price', 'sum'], label='Total Revenue')
+plt.plot(monthly_data['price', 'mean'], label='Average Order Value')
+plt.xlabel('Month')
+plt.ylabel('Value')
+plt.title('Sales Trends Analysis')
+plt.legend()
+plt.show()
+
+# Print out the most popular products
+popular_products = data['product'].value_counts().head()
+print('Most Popular Products:')
+print(popular_products)
